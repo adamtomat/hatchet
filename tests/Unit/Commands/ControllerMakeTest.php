@@ -29,7 +29,10 @@ class ControllerMakeTest extends TestCase
         // Assert the file was created
         $relativePath = 'app/Http/Controllers/MyController.php';
         $this->assertMockPath($relativePath);
+        $this->assertContains('MyController', $this->getMockFileContents($relativePath));
         $this->assertNotContains('DummyController', $this->getMockFileContents($relativePath));
+        $this->assertContains('extends Controller', $this->getMockFileContents($relativePath));
+        $this->assertContains('use Rareloop\\Lumberjack\\Http\\Controller;', $this->getMockFileContents($relativePath));
         $this->requireMockFile($relativePath);
 
         // Assert we can instantiate it and make inferences on it's properties
