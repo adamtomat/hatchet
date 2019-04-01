@@ -22,6 +22,11 @@ class ControllerMakeTest extends TestCase
         $hatchet = $app->make(Hatchet::class);
         $hatchet->console()->add($app->make(ControllerMake::class));
 
+        // The app class does not exist because it's part of the theme. We don't really care
+        // that this class exists, we just care that the file is generated extending the right class.
+        // So we are just aliasing the base controller
+        class_alias('Rareloop\\Lumberjack\\Http\\Controller', 'App\\Http\\Controllers\\Controller');
+
         $output = $this->callHatchetCommand($hatchet, 'make:controller', [
             'name' => 'MyController',
         ]);
@@ -32,7 +37,7 @@ class ControllerMakeTest extends TestCase
         $this->assertContains('MyController', $this->getMockFileContents($relativePath));
         $this->assertNotContains('DummyController', $this->getMockFileContents($relativePath));
         $this->assertContains('extends Controller', $this->getMockFileContents($relativePath));
-        $this->assertContains('use Rareloop\\Lumberjack\\Http\\Controller;', $this->getMockFileContents($relativePath));
+        $this->assertContains('use App\\Http\\Controllers\\Controller;', $this->getMockFileContents($relativePath));
         $this->requireMockFile($relativePath);
 
         // Assert we can instantiate it and make inferences on it's properties
