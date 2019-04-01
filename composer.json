@@ -2,7 +2,7 @@
     "name": "rareloop/hatchet",
     "require": {
         "php": "^7.1.3",
-        "rareloop/lumberjack-core": "v4.x-dev@dev",
+        "rareloop/lumberjack-core": "^4.2",
         "symfony/console": "^4.1",
         "icanboogie/inflector": "^1.4",
         "upstatement/routes": "^0.4"
